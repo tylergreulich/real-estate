@@ -1,7 +1,9 @@
+import { createMuiTheme } from '@material-ui/core'
+
 export const theme = {
   main: {
-    primary: '#0c002b',
-    secondary: '#ff718e',
+    primary: '#247ba0',
+    secondary: '#f0f3bd',
     white: '#fff',
     grey: '#faf7f5',
     darkGrey: '#68717e',
@@ -9,3 +11,14 @@ export const theme = {
     black: '#000'
   }
 }
+
+export const muiTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#247ba0'
+    },
+    secondary: {
+      main: '#f0f3bd'
+    }
+  }
+})

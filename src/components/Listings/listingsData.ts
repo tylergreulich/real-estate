@@ -1,4 +1,3 @@
-import React from 'react'
 import apartmentOneImage from '../../assets/img/apartment-1.jpg'
 import apartmentTenImage from '../../assets/img/apartment-10.jpg'
 import apartmentElevenImage from '../../assets/img/apartment-11.jpg'
@@ -27,7 +26,7 @@ export const listingsData: ListingProps[] = [
     datePosted: '05-05-2020',
     price: 220000,
     floorSpace: 2000,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator', 'swimming_pool'],
     houseType: 'apartment',
     imgUrl: apartmentOneImage
   },
@@ -40,7 +39,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['gym', 'swimming_pool'],
     houseType: 'studio',
     imgUrl: apartmentTwoImage
   },
@@ -53,7 +52,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '1',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['gym', 'swimming_pool', 'elevator'],
     houseType: 'room',
     imgUrl: apartmentThreeImage
   },
@@ -66,7 +65,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator'],
     houseType: 'studio',
     imgUrl: apartmentFourImage
   },
@@ -79,7 +78,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '1',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator', 'gym'],
     houseType: 'apartment',
     imgUrl: apartmentFiveImage
   },
@@ -92,12 +91,12 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator'],
     houseType: 'studio',
     imgUrl: apartmentSixImage
   },
   {
-    address: '36143 Rodeo Drive',
+    address: '36141 Rodeo Drive',
     city: 'Los Angeles',
     realEstateAgent: 'Nina Smith',
     datePosted: '05-05-2020',
@@ -105,7 +104,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['gym', 'swimming_pool'],
     houseType: 'room',
     imgUrl: apartmentSevenImage
   },
@@ -131,7 +130,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator'],
     houseType: 'apartment',
     imgUrl: apartmentNineImage
   },
@@ -157,7 +156,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['gym', 'swimming_pool'],
     houseType: 'apartment',
     imgUrl: apartmentElevenImage
   },
@@ -170,7 +169,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '1',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator'],
     houseType: 'room',
     imgUrl: apartmentTwelveImage
   },
@@ -209,7 +208,7 @@ export const listingsData: ListingProps[] = [
     bedrooms: '2',
     price: 210000,
     floorSpace: 1900,
-    extras: ['gym', 'elevator'],
+    extras: ['elevator'],
     houseType: 'studio',
     imgUrl: apartmentFifteenImage
   },
@@ -227,9 +226,3 @@ export const listingsData: ListingProps[] = [
     imgUrl: apartmentSixteenImage
   }
 ]
-
-export const useListings = () => {
-  const [listings, setListings] = React.useState(listingsData)
-
-  return { listings, setListings }
-}

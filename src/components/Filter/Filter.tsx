@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -8,6 +7,8 @@ import {
   Typography
 } from '@material-ui/core'
 import React from 'react'
+import { capitalizeFirstLetter } from '../../utils/capitalizeFirstLetter'
+import { makeArrayUnique } from '../../utils/makeArrayUnique'
 import { FilterProps } from './Filter.interface'
 import {
   ExtrasWrapper,
@@ -15,7 +16,7 @@ import {
   FloorSpaceWrapper,
   PriceFilterWrapper
 } from './Filter.styles'
-import { useFilterStyles } from './filterClasses'
+import { StyledCheckbox, useFilterStyles } from './filterClasses'
 import { SelectFilter } from './Filters/SelectFilter/SelectFilter'
 import { TextFieldFilters } from './Filters/TextFieldFilters/TextFieldFilters'
 
@@ -24,6 +25,16 @@ export const Filter: React.FC<FilterProps> = ({
   filterValue
 }) => {
   const classes = useFilterStyles()
+
+  const filteredCities = makeArrayUnique(filterValue!.listingsData!, 'city')
+  const filteredHouseTypes = makeArrayUnique(
+    filterValue!.listingsData!,
+    'houseType'
+  )
+  const filteredBedrooms = makeArrayUnique(
+    filterValue!.listingsData!,
+    'bedrooms'
+  )
 
   return (
     <FilterContainer>
@@ -35,32 +46,42 @@ export const Filter: React.FC<FilterProps> = ({
         inputName="City"
         classes={classes}
         value={filterValue?.city}
+        name="city"
       >
-        <MenuItem value="Phoenix">Phoenix</MenuItem>
-        <MenuItem value="Miami">Miami</MenuItem>
-        <MenuItem value="Los Angeles">Los Angeles</MenuItem>
-        <MenuItem value="San Francisco">San Francisco</MenuItem>
+        <MenuItem value="All">All</MenuItem>
+        {filteredCities.map((city, index) => (
+          <MenuItem key={index} value={city}>
+            {city}
+          </MenuItem>
+        ))}
       </SelectFilter>
       <SelectFilter
         handleChange={handleChange}
         inputName="House Type"
         classes={classes}
-        value={filterValue?.house_type}
+        value={filterValue?.houseType}
+        name="houseType"
       >
-        <MenuItem value="apartment">Apartment</MenuItem>
-        <MenuItem value="studio">Studio</MenuItem>
-        <MenuItem value="ranch">Room</MenuItem>
+        <MenuItem value="All">All</MenuItem>
+        {filteredHouseTypes.map((houseType, index) => (
+          <MenuItem key={index} value={houseType}>
+            {capitalizeFirstLetter(houseType)}
+          </MenuItem>
+        ))}
       </SelectFilter>
       <SelectFilter
         handleChange={handleChange}
         inputName="Bedrooms"
         classes={classes}
         value={filterValue?.bedrooms}
+        name="bedrooms"
       >
-        <MenuItem value="1">1 Bedroom</MenuItem>
-        <MenuItem value="2">2 Bedrooms</MenuItem>
-        <MenuItem value="3">3 Bedrooms</MenuItem>
-        <MenuItem value="4">4 Bedrooms</MenuItem>
+        <MenuItem value="0">All</MenuItem>
+        {filteredBedrooms.map((bedroom) => (
+          <MenuItem key={bedroom} value={bedroom}>
+            {bedroom}+ Bedrooms
+          </MenuItem>
+        ))}
       </SelectFilter>
       <PriceFilterWrapper>
         <TextFieldFilters
@@ -100,7 +121,7 @@ export const Filter: React.FC<FilterProps> = ({
             <FormGroup>
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <StyledCheckbox
                     checked={filterValue?.elevators}
                     onChange={(event) => {
                       handleChange(event)
@@ -114,7 +135,7 @@ export const Filter: React.FC<FilterProps> = ({
               />
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <StyledCheckbox
                     checked={filterValue?.swimming_pool}
                     onChange={(event) => {
                       handleChange(event)
@@ -128,21 +149,7 @@ export const Filter: React.FC<FilterProps> = ({
               />
               <FormControlLabel
                 control={
-                  <Checkbox
-                    checked={filterValue?.finished_basement}
-                    onChange={(event) => {
-                      handleChange(event)
-                    }}
-                    name="finished_basement"
-                  />
-                }
-                labelPlacement="start"
-                label="Finished Basement"
-                className={classes.extrasLabel}
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
+                  <StyledCheckbox
                     onChange={(event) => {
                       handleChange(event)
                     }}

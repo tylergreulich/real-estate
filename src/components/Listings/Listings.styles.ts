@@ -35,21 +35,37 @@ export const SortOptions = styled.div`
   }
 `
 
-export const ViewMode = styled.div`
+interface ViewModeProps {
+  viewMode: string
+}
+
+export const ViewMode = styled.div<ViewModeProps>`
   display: inline-flex;
   align-items: center;
   height: 100%;
-  margin: 8px;
+  margin: 8px 0;
+  cursor: pointer;
 
   svg {
-    margin-right: 30px;
+    margin-left: 30px;
     font-size: 1.25rem;
+  }
+
+  .fa-list {
+    color: ${({ viewMode, theme }) =>
+      viewMode === 'horizontal' ? theme.main.black : theme.main.lightGrey};
+  }
+
+  .fa-th {
+    color: ${({ viewMode, theme }) =>
+      viewMode === 'vertical' ? theme.main.black : theme.main.lightGrey};
   }
 `
 
-export const ListingResults = styled.section`
+export const ListingResults = styled.section<ViewModeProps>`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: ${({ viewMode }) =>
+    viewMode === 'vertical' ? `repeat(3, 1fr)` : `repeat(2, 1fr)`};
   gap: 60px;
   margin-bottom: 60px;
 `

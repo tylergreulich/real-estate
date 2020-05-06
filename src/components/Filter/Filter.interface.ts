@@ -1,4 +1,4 @@
-import { FilterValue } from './../../views/Home'
+import { FilterValue } from './../../views/Home.interface'
 
 export interface FilterProps {
   handleChange: (event: React.ChangeEvent<any>) => any

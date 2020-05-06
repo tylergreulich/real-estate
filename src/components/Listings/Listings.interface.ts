@@ -7,4 +7,7 @@ export interface ListingsProps {
   totalPosts: any
   currentPosts: ListingProps[]
   postsPerPage: any
+  sortBy: string
+  onChange: (event: any) => any
+  search: string
 }

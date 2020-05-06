@@ -6,4 +6,5 @@ export interface FiltersProps extends FilterProps {
     string
   >
   inputName: string
+  name?: string
 }

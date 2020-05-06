@@ -1,4 +1,5 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { Checkbox, createStyles, makeStyles, Theme } from '@material-ui/core'
+import styled from 'styled-components'
 
 export const useFilterStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,3 +25,7 @@ export const useFilterStyles = makeStyles((theme: Theme) =>
     }
   })
 )
+
+export const StyledCheckbox = styled(Checkbox)`
+  color: ${({ theme }) => theme.main.primary} !important;
+`

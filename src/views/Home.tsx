@@ -2,31 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { Filter } from '../components/Filter/Filter'
 import { Header } from '../components/Home/Header/Header'
-import { ListingProps } from '../components/Listings/Listing/Listing.interface'
 import { Listings } from '../components/Listings/Listings'
 import { listingsData } from '../components/Listings/listingsData'
+import { filterExtras } from '../utils/filterExtras'
+import { FilterValue } from './Home.interface'
 
 export const ContentArea = styled.section`
   display: flex;
 `
-
-export interface FilterValue {
-  max_price: number
-  min_price: number
-  max_floor_space: number
-  min_floor_space: number
-  house_type: string
-  city: string
-  bedrooms: string
-  elevators: boolean
-  swimming_pool: boolean
-  finished_basement: boolean
-  gym: boolean
-  filteredData?: ListingProps[]
-  listingsData?: ListingProps[]
-  postsPerPage: number
-  currentPage: number
-}
 
 export class HomeComponent extends React.PureComponent {
   state: FilterValue = {
@@ -34,30 +17,30 @@ export class HomeComponent extends React.PureComponent {
     max_price: 10000000,
     min_floor_space: 0,
     max_floor_space: 50000,
-    house_type: 'apartment',
-    city: 'Los Angeles',
-    bedrooms: '1',
+    houseType: 'All',
+    city: 'All',
+    bedrooms: '0',
     elevators: false,
     gym: false,
     swimming_pool: false,
-    finished_basement: false,
     filteredData: listingsData,
     listingsData,
     postsPerPage: 9,
-    currentPage: 1
+    currentPage: 1,
+    isFiltered: false,
+    sortBy: '',
+    search: ''
   }
 
   handleChange = ({ target }: React.ChangeEvent<any>) => {
     let { name, value, type, checked } = target
-
-    name = name.split(' ').join('_').toLowerCase()
 
     const isCheckbox = type === 'checkbox'
 
     value = isCheckbox ? checked : value
 
     this.setState({ [name]: value }, () => {
-      console.log(this.state)
+      console.log('After setState', this.state)
       this.filterData()
     })
   }
@@ -71,30 +54,71 @@ export class HomeComponent extends React.PureComponent {
       max_floor_space,
       city,
       bedrooms,
-      house_type
+      houseType,
+      gym,
+      swimming_pool,
+      elevators,
+      sortBy,
+      search
     } = this.state
-    const newData = listingsData!.filter((item) => {
+
+    this.setState({ isFiltered: true })
+
+    let newData = listingsData!.filter((item) => {
       return (
         item.price >= min_price &&
         item.price <= max_price &&
         item.floorSpace >= min_floor_space &&
         item.floorSpace <= max_floor_space &&
-        item.houseType === house_type &&
-        item.city === city &&
-        item.bedrooms === bedrooms
+        parseInt(item.bedrooms) >= parseInt(bedrooms)
       )
     })
 
-    this.setState({ filteredData: newData })
+    if (city !== 'All') {
+      newData = newData.filter((item) => item.city === city)
+    }
+
+    if (houseType !== 'All') {
+      newData = newData.filter((item) => item.houseType === houseType)
+    }
+
+    if (gym) newData = filterExtras(newData, 'gym')
+    if (elevators) newData = filterExtras(newData, 'elevator')
+    if (swimming_pool) newData = filterExtras(newData, 'swimming_pool')
+
+    if (sortBy === 'highest-price')
+      newData = newData.sort((a, b) => b.price - a.price)
+    if (sortBy === 'lowest-price')
+      newData = newData.sort((a, b) => a.price - b.price)
+
+    this.setState({ filteredData: newData }, () => {
+      console.log('After Filter', this.state)
+    })
   }
 
   render() {
-    const { currentPage, postsPerPage, listingsData } = this.state
+    const {
+      currentPage,
+      postsPerPage,
+      listingsData,
+      filteredData,
+      isFiltered
+    } = this.state
 
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
-    const currentPosts = listingsData!.slice(indexOfFirstPost, indexOfLastPost)
-    const totalPages = Math.ceil(listingsData!.length / 9)
+
+    const getCurrentPosts = (posts: any) =>
+      posts.slice(indexOfFirstPost, indexOfLastPost)
+
+    const currentPosts = isFiltered
+      ? getCurrentPosts(filteredData)
+      : getCurrentPosts(listingsData)
+
+    const totalPages =
+      isFiltered && filteredData!.length <= 9
+        ? 1
+        : Math.ceil(listingsData!.length / 9)
 
     // Change Page
     const paginate = (pageNumber: number) =>
@@ -112,6 +136,9 @@ export class HomeComponent extends React.PureComponent {
             paginate={paginate}
             totalPosts={listingsData!.length}
             currentPosts={currentPosts}
+            sortBy={this.state.sortBy!}
+            onChange={this.handleChange}
+            search={this.state.search}
           />
         </ContentArea>
       </>
