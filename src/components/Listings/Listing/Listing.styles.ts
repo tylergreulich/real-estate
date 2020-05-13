@@ -14,15 +14,19 @@ export const ListingAddress = styled.span`
   text-shadow: 0 1px 4px rgba(91, 91, 91, 1);
   opacity: 1;
   transition: all 0.3s ease-in-out;
+
+  @media (max-width: 1100px) {
+    font-size: 1.5rem;
+  }
 `
 
 export const ListingDetails = styled.div`
   padding: 25px;
   position: absolute;
   background: linear-gradient(
-    135deg,
-    rgba(78, 2, 229, 0.8) 0%,
-    rgba(157, 28, 237, 0.8) 100%
+    to left,
+    rgba(218, 68, 83, 0.9),
+    rgba(137, 33, 107, 0.9)
   );
   top: 0;
   bottom: 0;

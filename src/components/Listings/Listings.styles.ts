@@ -60,6 +60,10 @@ export const ViewMode = styled.div<ViewModeProps>`
     color: ${({ viewMode, theme }) =>
       viewMode === 'vertical' ? theme.main.black : theme.main.lightGrey};
   }
+
+  @media (max-width: 1100px) {
+    display: none;
+  }
 `
 
 export const ListingResults = styled.section<ViewModeProps>`
@@ -68,6 +72,14 @@ export const ListingResults = styled.section<ViewModeProps>`
     viewMode === 'vertical' ? `repeat(3, 1fr)` : `repeat(2, 1fr)`};
   gap: 60px;
   margin-bottom: 60px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export const PaginationContainer = styled.section`

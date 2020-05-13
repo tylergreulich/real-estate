@@ -58,8 +58,7 @@ export class HomeComponent extends React.PureComponent {
       gym,
       swimming_pool,
       elevators,
-      sortBy,
-      search
+      sortBy
     } = this.state
 
     this.setState({ isFiltered: true })

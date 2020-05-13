@@ -6,6 +6,14 @@ export const FilterContainer = styled.section`
   flex-direction: column;
   width: 25vw;
   padding: 70px;
+
+  @media (max-width: 1200px) {
+    padding: 30px;
+  }
+
+  @media (max-width: 900px) {
+    width: 40vw;
+  }
 `
 
 export const PriceFilterWrapper = styled.div`
