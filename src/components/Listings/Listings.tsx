@@ -55,7 +55,7 @@ export const Listings: React.FC<ListingsProps> = React.memo(
         ) : (
           <>
             <SortContainer>
-              <Results>390 results found</Results>
+              <Results>{currentPosts.length} results found</Results>
               <SortOptions>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="demo-simple-select-label">Price</InputLabel>
